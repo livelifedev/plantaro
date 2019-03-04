@@ -1,0 +1,3 @@
+Plantaro - Terminal app game.
+
+The concept of this terminal game is to take care of and raise a virtual plant from seedling through growth. Similar to other 'pet' simulation games like Tamagotchi, the player is given options to interact with his/her plant which impact the health and happinness parameters of the plant affecting its growth. The plant is given a birth date when it is created by the user and the plant's age is tracked by days in real time from its creation. Depending on user actions, the plant can continuously thrive and grow or wither and die.
