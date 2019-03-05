@@ -1,13 +1,5 @@
 require 'date'
-$:.unshift File.dirname(__FILE__) + '/../lib'
-require 'terminal-table/import'
-require 'rainbow'
-require 'rainbow/refinement'
-using Rainbow
-require "tty-font"
-font = TTY::Font.new(:doom)
 require 'catpix'
-
 
 class Plant
   attr_accessor :birthday, :age #just for testing
@@ -38,17 +30,6 @@ class Plant
     @last_action = []
   end
 
-  def print_pix(image)
-    Catpix::print_image image,
-      :limit_x => 0.4,
-      :limit_y => 0,
-      :center_x => true,
-      :center_y => true,
-      :bg => nil,
-      :bg_fill => false,
-      :resolution => 'auto'
-  end
-
   def check_happiness
 
     info = "Your plant's name is #{@name}, " +
@@ -58,55 +39,48 @@ class Plant
     puts "#{info} \nPlant status:"
 
     if @happiness >= 100
-      print_pix "small/100_pxl.png"
       puts @messages[:happy100]
+      pix = "small/100_pxl.png"
     elsif @happiness >= 75
-      print_pix "small/75_pxl.png"
       puts @messages[:happy75]
+      pix = "small/75_pxl.png"
     elsif @happiness >= 50
-      print_pix "small/50_pxl.png"
       puts @messages[:happy50]
+      pix = "small/50_pxl.png"
     elsif @happiness >= 30
-      print_pix "small/30_pxl.png"
       puts @messages[:happy30]
+      pix = "small/30_pxl.png"
     elsif @happiness < 30
-      print_pix "small/20_pxl.png"
       puts @messages[:happy20]
+      pix = "small/20_pxl.png"
     end
   end
 
   def water
-    if @last_action[-1] == @last_action[-2] && @last_action[-1] == "water" #needs 3 to be too much
-      # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1) #when there have been carried out more than two actions, what takes into account the program is the previous two actions
+    if @last_action[-1] == @last_action[-2] && @last_action.size > 1
       @happiness -= 10
-      print_pix "small/overwater.png"
       puts @messages[:overwater]
     else
       @happiness += 10
-      print_pix "small/actions/water.png"
       puts @messages[:water]
     end
     @last_action.push "water"
   end
 
   def give_sun
-      if @last_action[-1] == @last_action[-2] && @last_action[-1] == "give sun" #needs 2 to be two much
-        # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1)
+      if @last_action[-1] == @last_action[-2] && @last_action.size > 1
         @happiness -= 10
-        print_pix "small/burn.png"
         puts @messages[:oversun]
       else
         @happiness += 10
-        print_pix "small/actions/sun.png"
         puts @messages[:sun]
       end
-    @last_action.push "give sun"
+    @last_action.push "give_sun"
   end
 
   def sing
     puts "What do you want to sing to your plant?"
     song = gets.chomp
-    print_pix "small/actions/song.png"
     #shouting in upcase will reduce happiness
     if song == song.upcase 
       @happiness -= 10
@@ -120,11 +94,10 @@ class Plant
   end
 
   def pest?
-    #chance modifier for bug infestation, previous action must not be spray
+    #33% chance to get infested with bugs, previous action must not be spray
     #will not run if no other action has been taken first (newly created)
-    if rand(3) == 0 && @last_action[-1] != "spray" && @last_action != []
+    if rand(3) == 1 && @last_action.last != "spray" && @last_action != []
       @pest = true
-      print_pix "small/actions/pest.png"
       @happiness -= 20
     end
     @pest
@@ -134,34 +107,39 @@ class Plant
     if @pest
       #spraying plant while infested will return lost points
       @happiness += 20
-      print_pix "small/actions/pestkill.png"
       @pest = false
       puts @messages[:healed]
     else
       #if plant is not infested with bugs, spray will reduce happiness
       @happiness -= 10
-      print_pix "small/poison.png"
       puts @messages[:poison]
     end
     @last_action.push "spray"
   end
 
   def death?
-    if @happiness <= 0
-      print_pix "small/0_pxl.png" 
-      return true
-    else
-      return false
-    end
+    @happiness <= 0
   end
 end
+
+def print_pix(image)
+  Catpix::print_image image,
+    :limit_x => 0.4,
+    :limit_y => 0,
+    :center_x => true,
+    :center_y => true,
+    :bg => nil,
+    :bg_fill => false,
+    :resolution => 'auto'
+  end
+
 
 
 puts "Give your little plantling a name?"
 plant_name = gets.chomp
 plantaro = Plant.new "John", plant_name
-plantaro.print_pix "small/20_pxl.png"
-  
+print_pix "small/20_pxl.png"
+
 #program loop
 loop do 
   if plantaro.death?
@@ -193,10 +171,13 @@ loop do
     when "spray pests"
       plantaro.spray
     when "status"
-      plantaro.check_happiness
+      print_pix plantaro.check_happiness
     else
       puts "Input invalid"
   end
   
 end
-  
+
+
+
+
