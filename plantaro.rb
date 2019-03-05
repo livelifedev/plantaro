@@ -60,7 +60,7 @@ class Plant
   end
 
   def water
-    if @last_action[-1] == @last_action[-2] && @last_action[-1] == "water" #needs 3 to be too much
+    if @last_action[-1] == @last_action[-2] && @last_action[-1] == "water" 
       # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1) #when there have been carried out more than two actions, what takes into account the program is the previous two actions
       @happiness -= 10
       puts @messages[:overwater]
@@ -72,7 +72,7 @@ class Plant
   end
 
   def give_sun
-      if @last_action[-1] == @last_action[-2] && @last_action[-1] == "give sun" #needs 2 to be two much
+      if @last_action[-1] == @last_action[-2] && @last_action[-1] == "give sun" 
         # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1)
         @happiness -= 10
         puts @messages[:oversun]
@@ -127,7 +127,7 @@ class Plant
   end
 end
 
-
+puts font.write("plantaro", letter_spacing: 4)
 puts "Give your little plantling a name?"
 plant_name = gets.chomp
 plantaro = Plant.new "John", plant_name
@@ -148,7 +148,19 @@ loop do
 
   #options list
   puts "", "What would you like to do?"
-  puts "-Water\n-Give Sun\n-Sing\n-Spray Pests\n-Status\n-Quit", ""
+  # puts "-Water\n-Give Sun\n-Sing\n-Spray Pests\n-Status\n-Quit", ""z
+  puts
+option_table = table do
+  self.headings = ['Option','Description']
+  add_row [" Give sun", 'You will give sun to your plant so it can do photosynthesis']
+  add_row :separator
+  add_row ['Sing', "You know singing to plants helps give them Carbon Dioxide?"]
+  add_row :separator
+  add_row ['Spary Pests', "You will kill the insects annoying your plant"]
+  add_row :separator
+  add_row ["Water", "You will water your plant so it won´t dehidrate"]
+end
+puts option_table
   input = gets.chomp
   if input == "quit"
     puts "Your plant has lived great life at #{plantaro.age} days old.",
@@ -173,9 +185,23 @@ loop do
   
 end
 
+# puts font.write("plantaro", letter_spacing: 4)
 # puts "Give your little plantling a name?"
 # name = gets.chomp
 # plantaro = Plant.new "John", name
+
+# puts
+# option_table = table do
+#   self.headings = ['Option','Description']
+#   add_row ["Give sun", 'You will give sun to your plant so it can do photosynthesis']
+#   add_row :separator
+#   add_row ['sing', "You know singing to plants helps give them Carbon Dioxide?"]
+#   add_row :separator
+#   add_row ['Spray Pests', "You will kill the insects annoying your plant"]
+#   add_row :separator
+#   add_row ["water", "You will water your plant so it won´t dehidrate"]
+# end
+# puts option_table
 
 # puts plantaro.birthday
 # puts plantaro.age
@@ -184,23 +210,12 @@ end
 # puts plantaro.give_sun
 
 
-# puts
-# option_table = table do
-#   self.headings = ['Option','Description']
-#   add_row ["sun", 'You will give sun to your plant so it can do photosynthesis']
-#   add_row :separator
-#   add_row ['sing', "You know singing to plants helps give them Carbon Dioxide?"]
-#   add_row :separator
-#   add_row ['pestizide', "You will kill the insects annoying your plant"]
-#   add_row :separator
-#   add_row ["water", "You will water your plant so it won´t dehidrate"]
-# end
-# puts option_table
+
 
 
 # puts "plant".red.green
 # puts "plant".background(:red)
-# puts font.write("plant", letter_spacing: 4)
+
 
 # Catpix::print_image "Copia de logo_estrechos.jpg",
 #   :limit_x => 1.0,
