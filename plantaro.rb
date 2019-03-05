@@ -11,27 +11,32 @@ class Plant
     @age = (Date.today - @birthday).to_i
     @pest = false
     @messages = {
-      :happy100 => "Your plant is vigorous!", 
-      :happy75 => "Your plant is OK", 
-      :happy50 => "Your plant is feeling standard...",
-      :happy30 => "Your plant is feeling standard...",  
-      :happy20 => "Mate! Your plant is sad and weak!",
-      :water => "Your plant is glistening! sparkle sparkle.",
-      :sun => "Your plant is getting a nice healthy tan.",
-      :song => "Your plant is reacting to your angel-like voice.",
-      :healed => "You saved your plant from ferocious pests, Hero!!",
-      :dead => "Your plant died! Rest In Plant... Good plant, better person", 
-      :overwater => "Too much water! This is not the Titanic!", 
-      :oversun => "Too much sun! Your plant became a tomato", 
-      :poison => "Too much pesticide! You plant looks sick!", 
-      :noisy => "Don´t shout!",
-      :infested => "Insects!",
-      :positive => "Good decision!"
+      :happy100 => "#{@name} is vigorous! Like a beanstalk", 
+      :happy75 => "#{@name}'s stem is looking thick and muscular", 
+      :happy50 => "#{@name} is chillin like a plant",
+      :happy30 => "#{@name} is feeling standard...",  
+      :happy20 => "Mate! #{@name} is sad and weak!",
+      :dead => "#{@name} died! Rest In Plant... Good plant, better person", 
+      :water => "#{@name} is glistening! sparkle sparkle.",
+      :sun => "#{@name} is getting a nice healthy tan.",
+      :song => "#{@name} is reacting to your angel-like voice.",
+      :healed => "You saved #{@name} from ferocious pests, Hero!!",
+      :overwater => "Too much water! #{@name} is not the Titanic!", 
+      :oversun => "Too much sun! #{@name} became a tomato", 
+      :poison => "Too much pesticide! #{@name} looks diseased!", 
+      :noisy => "Don´t shout. #{@name} is scared!"
     }
     @last_action = []
   end
 
   def check_happiness
+
+    info = "Your plant's name is #{@name}, " +
+    "this fella was born on #{@birthday}, " +
+    "thanks to you #{@owner}:)"
+
+    puts "#{info} \nPlant status:"
+
     if @happiness >= 100
       puts @messages[:happy100]
     elsif @happiness >= 75
@@ -132,20 +137,24 @@ loop do
 
   #options list
   puts "", "What would you like to do?"
-  puts "-Water\n-Give sun\n-Sing\n-Spray pests\n-Check status\n-Quit", ""
+  puts "-Water\n-Give Sun\n-Sing\n-Spray Pests\n-Status\n-Quit", ""
   input = gets.chomp
-  break if input == "quit"
+  if input == "quit"
+    puts "Your plant has lived great life at #{plantaro.age} days old.",
+    "Time to say goodbye :("
+    break
+  end
 
-  case input
+  case input.downcase
     when "water"
       plantaro.water
     when "give sun"
       plantaro.give_sun
     when "sing"
       plantaro.sing
-    when "spray"
+    when "spray pests"
       plantaro.spray
-    when "check"
+    when "status"
       plantaro.check_happiness
     else
       puts "Input invalid"
