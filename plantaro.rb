@@ -1,4 +1,6 @@
 require 'date'
+$:.unshift File.dirname(__FILE__) + '/../lib'
+require 'terminal-table/import'
 
 
 class Plant
@@ -71,14 +73,26 @@ class Plant
 
 end
 
-puts "Give your little plantling a name?"
-name = gets.chomp
-plantaro = Plant.new "John", name
+# puts "Give your little plantling a name?"
+# name = gets.chomp
+# plantaro = Plant.new "John", name
 
 # puts plantaro.birthday
 # puts plantaro.age
 # puts plantaro.sing
-puts plantaro.water_plant
+# puts plantaro.water_plant
 # puts plantaro.give_sun
 
-#hello
+
+puts
+option_table = table do
+  self.headings = ['Option','Description']
+  add_row ["sun", 'You will give sun to your plant so it can do photosynthesis']
+  add_row :separator
+  add_row ['sing', "You know singing to plants helps give them Carbon Dioxide?"]
+  add_row :separator
+  add_row ['pestizide', "You will kill the insects annoying your plant"]
+  add_row :separator
+  add_row ["water", "You will water your plant so it won´t dehidrate"]
+end
+puts option_table
