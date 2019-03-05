@@ -101,7 +101,7 @@ class Plant
   def pest?
     #33% chance to get infested with bugs, previous action must not be spray
     #will not run if no other action has been taken first (newly created)
-    if rand(300) == 1 && @last_action[-1] != "spray" && @last_action != []
+    if rand(3) == 1 && @last_action[-1] != "spray" && @last_action != []
       @pest = true
       @happiness -= 20
     end
@@ -152,11 +152,11 @@ loop do
   puts
 option_table = table do
   self.headings = ['Option','Description']
-  add_row [" Give sun", 'You will give sun to your plant so it can do photosynthesis']
+  add_row ["Give sun", 'You will give sun to your plant so it can do photosynthesis']
   add_row :separator
   add_row ['Sing', "You know singing to plants helps give them Carbon Dioxide?"]
   add_row :separator
-  add_row ['Spary Pests', "You will kill the insects annoying your plant"]
+  add_row ['Spray Pests', "You will kill the insects annoying your plant"]
   add_row :separator
   add_row ["Water", "You will water your plant so it won´t dehidrate"]
 end
