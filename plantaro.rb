@@ -1,6 +1,12 @@
 require 'date'
 $:.unshift File.dirname(__FILE__) + '/../lib'
 require 'terminal-table/import'
+require 'rainbow'
+require 'rainbow/refinement'
+using Rainbow
+require "tty-font"
+font = TTY::Font.new(:doom)
+require 'catpix'
 
 
 class Plant
@@ -84,16 +90,29 @@ end
 # puts plantaro.give_sun
 
 
-puts
-option_table = table do
-  self.headings = ['Option','Description']
-  add_row ["sun", 'You will give sun to your plant so it can do photosynthesis']
-  add_row :separator
-  add_row ['sing', "You know singing to plants helps give them Carbon Dioxide?"]
-  add_row :separator
-  add_row ['pestizide', "You will kill the insects annoying your plant"]
-  add_row :separator
-  add_row ["water", "You will water your plant so it won´t dehidrate"]
-end
-puts option_table
+# puts
+# option_table = table do
+#   self.headings = ['Option','Description']
+#   add_row ["sun", 'You will give sun to your plant so it can do photosynthesis']
+#   add_row :separator
+#   add_row ['sing', "You know singing to plants helps give them Carbon Dioxide?"]
+#   add_row :separator
+#   add_row ['pestizide', "You will kill the insects annoying your plant"]
+#   add_row :separator
+#   add_row ["water", "You will water your plant so it won´t dehidrate"]
+# end
+# puts option_table
 
+
+# puts "plant".red.green
+puts "plant".background(:red)
+puts font.write("plant", letter_spacing: 4)
+
+# Catpix::print_image "Copia de logo_estrechos.jpg",
+#   :limit_x => 1.0,
+#   :limit_y => 0,
+#   :center_x => true,
+#   :center_y => true,
+#   :bg => "white",
+#   :bg_fill => true,
+#   :resolution => "low"
