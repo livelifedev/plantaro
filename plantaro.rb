@@ -12,7 +12,7 @@ require 'catpix'
 class Plant
   attr_accessor :birthday, :age #just for testing
   
-  def initialize(username, name, birthday = Date.new(1993, 04, 16))
+  def initialize(username, name, birthday = Date.today)
     @owner = username
     @name = name
     @happiness = 20
@@ -24,7 +24,7 @@ class Plant
       :happy75 => "#{@name}'s stem is looking thick and muscular", 
       :happy50 => "#{@name} is chillin like a plant",
       :happy30 => "#{@name} is feeling standard...",  
-      :happy20 => "Mate! #{@name} is sad and weak!",
+      :happy20 => "#{@name} is looking like a scrawny twig!",
       :dead => "#{@name} died! Rest In Plant... Good plant, better person", 
       :water => "#{@name} is glistening! sparkle sparkle.",
       :sun => "#{@name} is getting a nice healthy tan.",
@@ -50,13 +50,7 @@ class Plant
   end
 
   def check_happiness
-
-    info = "Your plant's name is #{@name}, " +
-    "this fella was born on #{@birthday}, " +
-    "thanks to you #{@owner}:)"
-
-    puts "#{info} \nPlant status:"
-
+    puts "Plant status:"
     if @happiness >= 100
       print_pix "small/100_pxl.png"
       puts @messages[:happy100]
@@ -73,10 +67,15 @@ class Plant
       print_pix "small/20_pxl.png"
       puts @messages[:happy20]
     end
+    
+    info = "Your plant's name is #{@name}, " +
+    "this fella was born on #{@birthday}, " +
+    "thanks to you #{@owner}:)"
+    puts info
   end
 
   def water
-    if @last_action[-1] == @last_action[-2] && @last_action[-1] == "water" #needs 3 to be too much
+    if @last_action[-1] == @last_action[-2] && @last_action[-1] == "water" 
       # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1) #when there have been carried out more than two actions, what takes into account the program is the previous two actions
       @happiness -= 10
       print_pix "small/overwater.png"
@@ -90,23 +89,23 @@ class Plant
   end
 
   def give_sun
-      if @last_action[-1] == @last_action[-2] && @last_action[-1] == "give sun" #needs 2 to be two much
-        # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1)
-        @happiness -= 10
-        print_pix "small/burn.png"
-        puts @messages[:oversun]
-      else
-        @happiness += 10
-        print_pix "small/actions/sun.png"
-        puts @messages[:sun]
-      end
+    if @last_action[-1] == @last_action[-2] && @last_action[-1] == "give sun" 
+    # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1)
+      @happiness -= 10
+      print_pix "small/burn.png"
+      puts @messages[:oversun]
+    else
+      @happiness += 10
+      print_pix "small/actions/sun.png"
+      puts @messages[:sun]
+    end
     @last_action.push "give sun"
   end
 
   def sing
     puts "What do you want to sing to your plant?"
     song = gets.chomp
-    print_pix "small/actions/song.png"
+    print_pix "small/actions/sing.png"
     #shouting in upcase will reduce happiness
     if song == song.upcase 
       @happiness -= 10
@@ -156,7 +155,7 @@ class Plant
   end
 end
 
-
+puts font.write("plantaro", letter_spacing: 4)
 puts "Give your little plantling a name?"
 plant_name = gets.chomp
 plantaro = Plant.new "John", plant_name
@@ -175,7 +174,24 @@ loop do
 
   #options list
   puts "What would you like to do?"
-  puts "-Water\n-Give Sun\n-Sing\n-Spray Pests\n-Status\n-Quit", ""
+  #puts "-Water\n-Give Sun\n-Sing\n-Spray Pests\n-Status\n-Quit", ""
+  puts
+  option_table = table do
+    self.headings = ['Option','Description']
+    add_row ["Give sun", 'You will give sun to your plant so it can do photosynthesis']
+    add_row :separator
+    add_row ['Sing', "You know singing to plants helps give them Carbon Dioxide?"]
+    add_row :separator
+    add_row ['Spray Pests', "You will kill the insects annoying your plant"]
+    add_row :separator
+    add_row ["Water", "You will water your plant so it won´t dehidrate"]
+    add_row :separator
+    add_row ["Status", "You will check how your plant is feeling"]
+    add_row :separator
+    add_row ["Quit", "You will say goodbye to your plant and exit the game"]
+  end
+  puts option_table
+
   input = gets.chomp
   if input == "quit"
     puts "Your plant has lived great life at #{plantaro.age} days old.",
