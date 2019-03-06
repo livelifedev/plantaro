@@ -35,35 +35,37 @@ The concept of this terminal game is to take care of and raise a virtual plant f
 
 ##  Early Pseudocode #############
 #### plant class - initialize a new plant for the user
-    #properties to be initialised for each plant
-      -owner_name
-      -plant_name
-      -birth_date #as day passes, plant ages and gains happinness
-      -age
-      -happiness
-      -pests (true/false) 
-          #randomly as days pass, plant will get infested with pests
-          #pests will eat away at plants happiness if not pesticided
+     #properties to be initialised for each plant
+        -owner_name
+        -plant_name
+        -birth_date #as day passes, plant ages and gains happinness
+        -age
+        -happiness
+        -pests (true/false) 
+            #randomly as days pass, plant will get infested with pests
+            #pests will eat away at plants happiness if not pesticided
 
-    #actions user can perform to plant (actions will affect plant happiness)
-      -water_plant
-      -give_sun
-      -fertilize
-      -sing/talk
-      -pesticide
-  #end
-    ##created plant needs to be stored offline
-    ##need method to get time difference of birthday and current time
+     #actions user can perform to plant (actions will affect plant happiness)
+        -water_plant
+        -give_sun
+        -fertilize
+        -sing/talk
+       -pesticide
+     #end
+      ##created plant needs to be stored offline
+      ##need method to get time difference of birthday and current time
 
-  #messages displayed to user {
-    happy_message: "your plant is happy"
-    sad_message: ["too much water", "too much sun", "infested by pests"]
-    growth: ["plant is growing well"]
-  }
-  
-  #app startup message
-  #receive input from user
-  #create plant
+    #messages displayed to user {
+      happy_message: "your plant is happy"
+      sad_message: ["too much water", "too much sun", "infested by pests"]
+      growth: ["plant is growing well"]
+    }
+
+    #app startup message
+    #receive input from user
+    #create plant
+    
+    
 #############################################
 
 
