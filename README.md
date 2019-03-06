@@ -25,6 +25,8 @@ The concept of this terminal game is to take care of and raise a virtual plant f
   Catpix:
     https://github.com/pazdera/catpix
 
+  Luminosity_contrast:
+    https://github.com/devpuppy/luminosity_contrast
 
 #Instructions for use
   *Install required gem files
@@ -139,6 +141,10 @@ Option Details:
   	"#{@name} is chillin like a plant",
   	"#{@name} is feeling standard...",  
   	"#{@name} is looking like a scrawny twig!"
+
   -	“Quit”:
 
   The following message will be shown: "Your plant has lived great life at #{plantaro.age} days old.\n    Time to say goodbye :(".
+
+- Final notes regarding WCAG 2.0 standards:
+The luminosity_contrast gem is not necessary to play the game but it was used to check if the program complied with the WCAG 2.0 "AAA" standards.
