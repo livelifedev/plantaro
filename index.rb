@@ -11,15 +11,16 @@ require_relative 'plantaro'
 puts Rainbow(font.write("plantaro", letter_spacing: 4)).green
 puts "Hello you, what is your name?"
 user_name = gets.chomp
-puts "#{user_name}, give your little plantling a name?"
+puts "", "#{user_name}, give your little plantling a name?"
 plant_name = gets.chomp
 plantaro = Plant.new user_name, plant_name
 plantaro.print_pix "small/20_pxl.png"
+puts Rainbow("#{user_name}, #{plant_name} has just sprouted!").green.bright, ""
   
 #program loop
 loop do 
   if plantaro.death?
-    puts Rainbow("Your plant has withered away dues to poor plant-caring skills :(").black
+    puts Rainbow("Your plant has withered away due to poor plant-caring skills :(").black
     break
   end
 
@@ -33,7 +34,7 @@ loop do
   puts
   option_table = table do
     self.headings = ['Option','Description']
-    add_row ["Give sun", 'You will give sun to your plant so it can do photosynthesis']
+    add_row ["Give Sun", 'You will give sun to your plant so it can do photosynthesis']
     add_row :separator
     add_row ['Sing', "You know singing to plants helps give them Carbon Dioxide?"]
     add_row :separator
@@ -65,7 +66,10 @@ loop do
       plantaro.spray
     when "status"
       plantaro.check_happiness
-    when "cheat 100" #cheat code for testing
+    #cheat codes for testing purposes
+    when "cheat 1"
+      plantaro.happiness = 1
+    when "cheat 100" 
       plantaro.happiness = 100
     else
       puts "Input invalid"

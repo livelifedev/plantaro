@@ -117,7 +117,7 @@ class Plant
   def pest?
     #chance modifier for bug infestation, previous action must not be spray
     #will not run if no other action has been taken first (newly created)
-    if rand(3) == 1 && @last_action[-1] != "spray" && @last_action != []
+    if rand(4) == 1 && @last_action[-1] != "spray" && @last_action != []
       @pest = true
       print_pix "small/actions/pest.png"
       @happiness -= 20
