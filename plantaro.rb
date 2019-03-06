@@ -7,6 +7,7 @@ using Rainbow
 require "tty-font"
 font = TTY::Font.new(:doom)
 # require 'catpix'
+require "luminosity_contrast"
 
 
 class Plant
@@ -217,7 +218,7 @@ end
 # puts "plant".background(:red)
 
 
-# Catpix::print_image "Copia de logo_estrechos.jpg",
+# puts Catpix::print_image "Copia de logo_estrechos.jpg",
 #   :limit_x => 1.0,
 #   :limit_y => 0,
 #   :center_x => true,
@@ -225,3 +226,4 @@ end
 #   :bg => "white",
 #   :bg_fill => true,
 #   :resolution => "low"
+
