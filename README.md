@@ -20,7 +20,7 @@ The concept of this terminal game is to take care of and raise a virtual plant f
 
 ### *[Tty-font](https://github.com/piotrmurach/tty-font)*
 
-### *[Catpix](https://github.com/pazdera/catpix)*:
+### *[Catpix](https://github.com/pazdera/catpix)*
 
 ### *[Luminosity_contrast](https://github.com/devpuppy/luminosity_contrast)*
 
