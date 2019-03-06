@@ -1,16 +1,12 @@
 require 'date'
-$:.unshift File.dirname(__FILE__) + '/../lib'
-require 'terminal-table/import'
 require 'rainbow'
 require 'rainbow/refinement'
 using Rainbow
-require "tty-font"
-font = TTY::Font.new(:doom)
 require 'catpix'
 
 
 class Plant
-  attr_accessor :birthday, :age #just for testing
+  attr_accessor :birthday, :age, :happiness #just for testing
   
   def initialize(username, name, birthday = Date.today)
     @owner = username
@@ -121,7 +117,7 @@ class Plant
   def pest?
     #chance modifier for bug infestation, previous action must not be spray
     #will not run if no other action has been taken first (newly created)
-    if rand(3) == 0 && @last_action[-1] != "spray" && @last_action != []
+    if rand(3) == 1 && @last_action[-1] != "spray" && @last_action != []
       @pest = true
       print_pix "small/actions/pest.png"
       @happiness -= 20
@@ -154,65 +150,3 @@ class Plant
     end
   end
 end
-
-puts Rainbow(font.write("plantaro", letter_spacing: 4)).green
-puts "Give your little plantling a name?"
-plant_name = gets.chomp
-plantaro = Plant.new "John", plant_name
-plantaro.print_pix "small/20_pxl.png"
-  
-#program loop
-loop do 
-  if plantaro.death?
-    puts Rainbow("Your plant has withered away dues to poor plant-caring skills :(").black
-    break
-  end
-
-  if plantaro.pest?
-    puts Rainbow("Oh no! Your plant is infested with bugs. Kill them quick!!").bg(:indianred)
-  end
-
-  #options list
-  puts "What would you like to do?"
-
-  puts
-  option_table = table do
-    self.headings = ['Option','Description']
-    add_row ["Give sun", 'You will give sun to your plant so it can do photosynthesis']
-    add_row :separator
-    add_row ['Sing', "You know singing to plants helps give them Carbon Dioxide?"]
-    add_row :separator
-    add_row ['Spray Pests', "You will kill the insects annoying your plant"]
-    add_row :separator
-    add_row ["Water", "You will water your plant so it won´t dehidrate"]
-    add_row :separator
-    add_row ["Status", "You will check how your plant is feeling"]
-    add_row :separator
-    add_row ["Quit", "You will say goodbye to your plant and exit the game"]
-  end
-  puts option_table, ""
-
-  input = gets.chomp
-  if input == "quit"
-    puts "", Rainbow("Your plant has lived great life at #{plantaro.age} days old.\n
-    Time to say goodbye :(").black
-    break
-  end
-
-  case input.downcase
-    when "water"
-      plantaro.water
-    when "give sun"
-      plantaro.give_sun
-    when "sing"
-      plantaro.sing
-    when "spray pests"
-      plantaro.spray
-    when "status"
-      plantaro.check_happiness
-    else
-      puts "Input invalid"
-  end
-  
-end
-  
