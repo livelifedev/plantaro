@@ -53,25 +53,25 @@ class Plant
     puts "Plant status:"
     if @happiness >= 100
       print_pix "small/100_pxl.png"
-      puts @messages[:happy100]
+      puts Rainbow(@messages[:happy100]).green.underline
     elsif @happiness >= 75
       print_pix "small/75_pxl.png"
-      puts @messages[:happy75]
+      puts Rainbow(@messages[:happy75]).green.underline
     elsif @happiness >= 50
       print_pix "small/50_pxl.png"
-      puts @messages[:happy50]
+      puts Rainbow(@messages[:happy50]).green.underline
     elsif @happiness >= 30
       print_pix "small/30_pxl.png"
-      puts @messages[:happy30]
+      puts Rainbow(@messages[:happy30]).green.underline
     elsif @happiness < 30
       print_pix "small/20_pxl.png"
-      puts @messages[:happy20]
+      puts Rainbow(@messages[:happy20]).green.underline
     end
     
     info = "Your plant's name is #{@name}, " +
     "this fella was born on #{@birthday}, " +
     "thanks to you #{@owner}:)"
-    puts info
+    puts "", Rainbow(info).green.bright, ""
   end
 
   def water
@@ -79,11 +79,11 @@ class Plant
       # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1) #when there have been carried out more than two actions, what takes into account the program is the previous two actions
       @happiness -= 10
       print_pix "small/overwater.png"
-      puts @messages[:overwater]
+      puts Rainbow(@messages[:overwater]).red
     else
       @happiness += 10
       print_pix "small/actions/water.png"
-      puts @messages[:water]
+      puts Rainbow(@messages[:water]).bg(:aqua)
     end
     @last_action.push "water"
   end
@@ -93,11 +93,11 @@ class Plant
     # ((@last_action[-2] == @last_action[-3] || @last_action[-1] == @last_action[-2]) && @last_action.size > 1)
       @happiness -= 10
       print_pix "small/burn.png"
-      puts @messages[:oversun]
+      puts Rainbow(@messages[:oversun]).red
     else
       @happiness += 10
       print_pix "small/actions/sun.png"
-      puts @messages[:sun]
+      puts Rainbow(@messages[:sun]).bg(:yellow)
     end
     @last_action.push "give sun"
   end
@@ -109,11 +109,11 @@ class Plant
     #shouting in upcase will reduce happiness
     if song == song.upcase 
       @happiness -= 10
-      puts @messages[:noisy]
+      puts Rainbow(@messages[:noisy]).red
     else
       #length of song will add bonus points to happiness
       @happiness += 10 + song.length
-      puts @messages[:song]
+      puts Rainbow(@messages[:song]).bg(:silver)
     end
     @last_action.push "sing"
   end
@@ -135,12 +135,12 @@ class Plant
       @happiness += 20
       print_pix "small/actions/pestkill.png"
       @pest = false
-      puts @messages[:healed]
+      puts Rainbow(@messages[:healed]).bg(:green)
     else
       #if plant is not infested with bugs, spray will reduce happiness
       @happiness -= 10
       print_pix "small/poison.png"
-      puts @messages[:poison]
+      puts Rainbow(@messages[:poison]).red
     end
     @last_action.push "spray"
   end
@@ -155,7 +155,7 @@ class Plant
   end
 end
 
-puts font.write("plantaro", letter_spacing: 4)
+puts Rainbow(font.write("plantaro", letter_spacing: 4)).green
 puts "Give your little plantling a name?"
 plant_name = gets.chomp
 plantaro = Plant.new "John", plant_name
@@ -164,17 +164,17 @@ plantaro.print_pix "small/20_pxl.png"
 #program loop
 loop do 
   if plantaro.death?
-    puts "Your plant has withered away dues to poor plant-caring skills :("
+    puts Rainbow("Your plant has withered away dues to poor plant-caring skills :(").black
     break
   end
 
   if plantaro.pest?
-    puts "Oh no! Your plant is infested with bugs. Kill them quick!!" 
+    puts Rainbow("Oh no! Your plant is infested with bugs. Kill them quick!!").bg(:indianred)
   end
 
   #options list
   puts "What would you like to do?"
-  #puts "-Water\n-Give Sun\n-Sing\n-Spray Pests\n-Status\n-Quit", ""
+
   puts
   option_table = table do
     self.headings = ['Option','Description']
@@ -190,12 +190,12 @@ loop do
     add_row :separator
     add_row ["Quit", "You will say goodbye to your plant and exit the game"]
   end
-  puts option_table
+  puts option_table, ""
 
   input = gets.chomp
   if input == "quit"
-    puts "Your plant has lived great life at #{plantaro.age} days old.",
-    "Time to say goodbye :("
+    puts "", Rainbow("Your plant has lived great life at #{plantaro.age} days old.\n
+    Time to say goodbye :(").black
     break
   end
 
