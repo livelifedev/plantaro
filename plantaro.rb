@@ -6,7 +6,7 @@ require 'catpix'
 
 
 class Plant
-  attr_accessor :birthday, :age, :happiness #just for testing
+  attr_accessor :birthday, :happiness #just for testing
   
   def initialize(username, name, birthday = Date.today)
     @owner = username
