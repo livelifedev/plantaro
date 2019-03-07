@@ -13,7 +13,6 @@ class Plant
     @name = name
     @happiness = 20
     @birthday = birthday
-    @age = (Date.today - @birthday).to_i
     @pest = false
     @messages = {
       :happy100 => "#{@name} is vigorous! Like a beanstalk", 
@@ -45,6 +44,10 @@ class Plant
       :resolution => 'auto'
   end
 
+  def age
+    age = (Date.today - @birthday).to_i
+  end
+  
   def check_happiness
     puts "Plant status:"
     if @happiness >= 100
